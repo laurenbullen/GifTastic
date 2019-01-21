@@ -1,8 +1,5 @@
-button,
-div,
-form,
-input {
-  margin: 10px;
+div {
+    margin: 10px;
 }
 
 h1 {
@@ -10,4 +7,28 @@ h1 {
     font-size: 50px;
     text-align: center;
     font-weight: bold;
+}
+
+button {
+    margin: 10px;
+    padding: 10px;
+    border-color: blue;
+    font-family: 'Rubik', sans-serif;
+
+}
+label {
+    font-family: 'Rubik', sans-serif;
+    margin: 10px;
+}
+input {
+    font-family: 'Rubik', sans-serif;
+    margin: 10px;
+}
+
+body {
+    
+}
+
+form {
+    
 }

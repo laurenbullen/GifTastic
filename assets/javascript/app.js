@@ -38,3 +38,7 @@ $("#add-snack").on("click", function(event){
 
 })
 renderButtons()
+
+// The next goal is to make the snack gif buttons clickable. Each onclick of a button should display 10 gifs related to the button label.
+
+// Now that the buttons work, there should be an onclick for each individual gif that switches the state from still to active, and then back to still on a second onclick.
