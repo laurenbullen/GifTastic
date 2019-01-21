@@ -1,6 +1,5 @@
 // create variable to hold snacks in array
 var snacks = ["Chips", "Cookies", "Candy", "Donuts"];
-// var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + snack +"&api_key=FZoKa8kXZElSv2nSaByOPqpRDhNGr0xs&limit=10";
 
 
 // this funciton is to create buttons for each snack in the array
@@ -40,5 +39,49 @@ $("#add-snack").on("click", function(event){
 renderButtons()
 
 // The next goal is to make the snack gif buttons clickable. Each onclick of a button should display 10 gifs related to the button label.
+$("button").on("click", function(){
+    var snack = $(this).attr("data-name")
+
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + snack +"&api_key=FZoKa8kXZElSv2nSaByOPqpRDhNGr0xs&limit=10";
+    
+    // Performing our AJAX GET request
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+      // After the data comes back from the API
+      .then(function(response) {
+        // Storing an array of results in the results variable
+        var results = response.data;
+        // Now we have to loop through the response results 
+        for (let i = 0; i < results.length; i++) {
+            // We want only to display snack gifs with ratings G and PG
+            if(results[i].rating !== "r" && results[i].rating !== "pg-13") {
+                // creating a div for each snack gif
+                var snackDiv = $("<div>");
+                // store rating infor in a variable
+                var rating = results[i].rating;
+                // display rating in <p> tag
+                var p = $("<p>").text("Rating: " + rating);
+                // creating an image tag
+                var snackImage = $("<img>");
+                // give the image tag an src attribute
+                snackImage.attr("src", results[i].images.fixed_height.url);
+                // Appending the paragraph and personImage we created to the "gifDiv" div we created
+                snackDiv.append(p);
+                snackDiv.append(snackImage);
+                // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
+                $("#snacks-appear-here").prepend(snackDiv);
+                
+            }    
+            
+        }
+
+
+      })
+console.log(response)
+
+
+})
 
 // Now that the buttons work, there should be an onclick for each individual gif that switches the state from still to active, and then back to still on a second onclick.
