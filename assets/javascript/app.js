@@ -1,6 +1,7 @@
 // create variable to hold snacks in array
 var snacks = ["Chips", "Cookies", "Candy", "Donuts"];
-
+// creating an image tag
+var snackImage = $("<img>");
 
 // this funciton is to create buttons for each snack in the array
 function renderButtons() {
@@ -23,7 +24,7 @@ function renderButtons() {
         
     }
 }
-
+renderButtons();
 // this function will add new buttons based on the user input
 $("#add-snack").on("click", function(event){
 
@@ -33,12 +34,15 @@ $("#add-snack").on("click", function(event){
     // pushes new snack into snacks array
     snacks.push(snack);
 
-    renderButtons();
+    renderButtons();   
 
 })
 renderButtons()
+// clears the user input
+// $("#snack-input").empty()
 
 // The next goal is to make the snack gif buttons clickable. Each onclick of a button should display 10 gifs related to the button label.
+
 $("button").on("click", function(){
     var snack = $(this).attr("data-name")
 
@@ -51,6 +55,7 @@ $("button").on("click", function(){
       })
       // After the data comes back from the API
       .then(function(response) {
+          console.log(response);
         // Storing an array of results in the results variable
         var results = response.data;
         // Now we have to loop through the response results 
@@ -63,8 +68,6 @@ $("button").on("click", function(){
                 var rating = results[i].rating;
                 // display rating in <p> tag
                 var p = $("<p>").text("Rating: " + rating);
-                // creating an image tag
-                var snackImage = $("<img>");
                 // give the image tag an src attribute
                 snackImage.attr("src", results[i].images.fixed_height.url);
                 // Appending the paragraph and personImage we created to the "gifDiv" div we created
@@ -77,11 +80,19 @@ $("button").on("click", function(){
             
         }
 
-
       })
-console.log(response)
-
 
 })
 
-// Now that the buttons work, there should be an onclick for each individual gif that switches the state from still to active, and then back to still on a second onclick.
+// Now that the buttons work, there should be an onclick for each individual snack gif that switches the state from still to active, and then back to still on a second onclick.
+$(".snack").on("click", function(){
+// Add the attributes that will allow both still and animated states
+    var snackImageStillUrl = 
+    snackImage.attr("alt", "gif");
+    snackImage.attr("data-state", "still");
+    snackImage.attr('data-still', snackImageStillUrl);
+    snackImage.attr('data-animate', snackImageUrl);
+
+})
+
+// for next time, create one document onclick function so that all the variables needed for .snack onclick and button onclick functions are housed within the same function
