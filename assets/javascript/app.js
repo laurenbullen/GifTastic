@@ -71,7 +71,12 @@ $(document).on("click", "button", ".snack", function(){
                 // creating an image tag
                 var snackImage = $("<img>");
                 // give the image tag an src attribute
-                snackImage.attr("src", results[i].images.fixed_height.url);
+                snackImage.addClass("snack");
+                snackImage.attr("src", results[i].images.fixed_height_still.url);
+                snackImage.attr("alt", "gif");
+                snackImage.attr("data-state", "still");
+                snackImage.attr('data-still', results[i].images.fixed_height_still.url);
+                snackImage.attr('data-animate', results[i].images.fixed_height.url);
                 // Appending the paragraph and personImage we created to the "gifDiv" div we created
                 snackDiv.append(p);
                 snackDiv.append(snackImage);
@@ -83,12 +88,8 @@ $(document).on("click", "button", ".snack", function(){
       })
         // Now that the buttons work, there should be an onclick for each individual snack gif that switches the state from still to active, and then back to still on a second onclick.
         //   Add the attributes that will allow both still and animated states
-            var snackImageStillUrl = snackImage.attr()
-            snackImage.attr("alt", "gif");
-            snackImage.attr("data-state", "still");
-            snackImage.attr('data-still', snackImageStillUrl);
-            snackImage.attr('data-animate', snackImageUrl);
-
+        
+            var state = $(this).attr("data-state");
             if (state === "still") {
                 $(this).attr("src", $(this).attr("data-animate"));
                 $(this).attr("data-state", "animate");
