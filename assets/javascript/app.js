@@ -43,7 +43,7 @@ renderButtons()
 
 // The next goal is to make the snack gif buttons clickable. Each onclick of a button should display 10 gifs related to the button label.
 
-$(document).on("click", "button", ".snack", function(){
+$(document).on("click", "button", function(){
     var snack = $(this).attr("data-name")
 
     var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + snack +"&api_key=FZoKa8kXZElSv2nSaByOPqpRDhNGr0xs&limit=10";
@@ -72,7 +72,7 @@ $(document).on("click", "button", ".snack", function(){
                 var snackImage = $("<img>");
                 // give the image tag an src attribute
                 snackImage.addClass("snack");
-                snackImage.attr("src", results[i].images.fixed_height_still.url);
+                snackImage.attr("src", results[i].images.fixed_height.url);
                 snackImage.attr("alt", "gif");
                 snackImage.attr("data-state", "still");
                 snackImage.attr('data-still', results[i].images.fixed_height_still.url);
@@ -82,21 +82,29 @@ $(document).on("click", "button", ".snack", function(){
                 snackDiv.append(snackImage);
                 // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
                 $("#snacks-appear-here").prepend(snackDiv);
+
                 
-            }     
+            } 
+                
         }
-      })
         // Now that the buttons work, there should be an onclick for each individual snack gif that switches the state from still to active, and then back to still on a second onclick.
-        //   Add the attributes that will allow both still and animated states
-        
+        $(".snack").on('click', function(){
+
             var state = $(this).attr("data-state");
             if (state === "still") {
-                $(this).attr("src", $(this).attr("data-animate"));
-                $(this).attr("data-state", "animate");
-              } else {
-                $(this).attr("src", $(this).attr("data-still"));
-                $(this).attr("data-state", "still");
-              }
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+            } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+            }
+        })
+        
+      })
+        
+        
+        
+            
 
 })
 
