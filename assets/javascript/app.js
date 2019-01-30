@@ -46,7 +46,7 @@ renderButtons()
 $(document).on("click", "button", function(){
     var snack = $(this).attr("data-name")
 
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + snack +"&api_key=FZoKa8kXZElSv2nSaByOPqpRDhNGr0xs&limit=10";
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + snack +"&api_key=FZoKa8kXZElSv2nSaByOPqpRDhNGr0xs&limit=10";
     
     // Performing our AJAX GET request
     $.ajax({
